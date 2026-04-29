@@ -1,0 +1,46 @@
+<div class="container">
+  <header>
+    <h1>⚡ QuickFix</h1>
+    <p>Your Personal Coding Cheat-Sheet & Lab Survival Guide.</p>
+  </header>
+
+  <!-- Add New Fix Section -->
+  <section class="form-section card">
+    <h2>🛠️ Record a New Fix</h2>
+    <div class="form-grid">
+      <div class="input-group">
+        <label>Error Message / Scenario</label>
+        <input [(ngModel)]="newError" placeholder="e.g. Git: Refusing to merge unrelated histories" />
+      </div>
+      <div class="input-group">
+        <label>The Solution / Command</label>
+        <input [(ngModel)]="newSolution" placeholder="e.g. git merge origin master --allow-unrelated-histories" />
+      </div>
+      <button (click) = "addFix()">Save Fix</button>
+    </div>
+  </section>
+
+  <!-- Display Fixes Section -->
+  <section class="list-section">
+    <div class="list-header">
+      <h2>📋 Saved Solutions</h2>
+      <span class="count">{{ fixes().length }} items saved</span>
+    </div>
+
+    <div class="grid">
+      <div *ngIf="fixes().length === 0" class="empty-state">
+        <p>No fixes recorded yet. Start by adding one above!</p>
+      </div>
+
+      <div class="fix-card" *ngFor="let item of fixes(); let i = index">
+        <div class="card-top">
+          <h3>{{ item.error }}</h3>
+          <button class="del-btn" (click)="deleteFix(i)">×</button>
+        </div>
+        <div class="code-block">
+          <code>{{ item.solution }}</code>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
